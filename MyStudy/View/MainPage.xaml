@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyStudy.MainPage"
+             Title="My Study"
+             BackgroundColor="#F0F4F8"
+             xmlns:local="clr-namespace:MyStudy.View">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <!-- Scrollable Content -->
+        <ScrollView>
+            <StackLayout Padding="20" Spacing="20">
+                <!-- Welcome Title -->
+                <Label Text="Welcome, Student!" 
+                       FontSize="28" 
+                       FontAttributes="Bold" 
+                       HorizontalOptions="Center" 
+                       TextColor="#1E293B" />
+
+                <!-- Schedule Frame -->
+                <Frame BackgroundColor="SeaGreen" CornerRadius="15" Padding="20" Margin="10,10,10,20" HasShadow="True">
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Label Text="SCHEDULES" 
+                               FontSize="24" 
+                               FontAttributes="Bold" 
+                               TextColor="White" 
+                               HorizontalOptions="Center" />
+                        <Label x:Name="EntryCountLabel" 
+                               Text="{Binding TotalEntries, StringFormat='Total Schedule: {0}'}" 
+                               FontSize="18" 
+                               TextColor="White" 
+                               HorizontalOptions="Center" />
+                        <BoxView HeightRequest="2" BackgroundColor="White" HorizontalOptions="FillAndExpand" Margin="0,10" />
+                    </StackLayout>
+                </Frame>
+
+                <!-- Display text when TotalEntries == 0 -->
+                <Label Text="No schedules available"
+                       IsVisible="{Binding TotalEntries, Converter={StaticResource IntToVisibilityConverter}}"
+                       TextColor="Red"
+                       FontSize="20"
+                       HorizontalOptions="Center" />
+
+                <!-- Schedules CollectionView -->
+                <CollectionView ItemsSource="{Binding Schedules}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="15" 
+                                   Margin="10" 
+                                   BorderColor="#E2E8F0" 
+                                   BackgroundColor="White" 
+                                   CornerRadius="15" 
+                                   HasShadow="True">
+                                <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, Auto" RowSpacing="10" HorizontalOptions="Center">
+                                    <!-- Schedule Info -->
+                                    <StackLayout Grid.Row="0" Grid.ColumnSpan="2" Spacing="5">
+                                        <Grid ColumnDefinitions="*,*" Padding="5">
+                                            <StackLayout Grid.Column="0" Spacing="5" HorizontalOptions="Center">
+                                                <Label Text="Course" FontSize="Default" TextColor="#1E293B" />
+                                                <Label Text="{Binding TaskName}" FontSize="12" TextColor="#475569" />
+                                                <Label Text="Description" FontSize="Default" TextColor="#1E293B" />
+                                                <Label Text="{Binding TaskDescription}" FontSize="12" TextColor="#64748B" />
+                                                <Label Text="Day" FontSize="Default" TextColor="#1E293B" />
+                                                <Label Text="{Binding DayOfWeek}" FontSize="12" TextColor="#475569" />
+                                            </StackLayout>
+                                            <StackLayout Grid.Column="1" Spacing="5" HorizontalOptions="Center">
+                                                <Label Text="Start Time" FontSize="Default" TextColor="#1E293B" />
+                                                <Label Text="{Binding StartTime, StringFormat='{0:hh\\:mm tt}'}" FontSize="12" TextColor="#475569" />
+                                                <Label Text="End Time" FontSize="Default" TextColor="#1E293B" />
+                                                <Label Text="{Binding EndTime, StringFormat='{0:hh\\:mm tt}'}" FontSize="12" TextColor="#475569" />
+                                                <Label Text="Type" FontSize="Default" TextColor="#1E293B" />
+                                                <Label Text="{Binding Priority}" FontSize="12" TextColor="#EF4444" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </StackLayout>
+
+                                    <!-- Edit and Delete Buttons -->
+                                    <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">
+                                        <Button Text="Edit" BackgroundColor="#F59E0B" TextColor="White" CornerRadius="8" CommandParameter="{Binding Id}" Clicked="OnEditSchedule" WidthRequest="120" />
+                                        <Button Text="Delete" BackgroundColor="#DC2626" TextColor="White" CornerRadius="8" CommandParameter="{Binding Id}" Clicked="OnDeleteSchedule" WidthRequest="120" />
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- "+" Button -->
+        <Button Text="+" 
+                FontSize="50" 
+                BackgroundColor="#3B82F6" 
+                TextColor="White" 
+                CornerRadius="50" 
+                HeightRequest="70" 
+                WidthRequest="70" 
+                Padding="0" 
+                FontAttributes="Bold" 
+                VerticalOptions="End" 
+                HorizontalOptions="End" 
+                Margin="30" 
+                Clicked="OnAddScheduleClicked" />
+    </Grid>
+</ContentPage>

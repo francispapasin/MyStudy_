@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyStudy.View.AddEditSchedulePage"
+             Title="AddEditSchedulePage"
+             BackgroundColor="White">
+
+
+
+    <!-- Wrap the StackLayout with a ScrollView -->
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+            <Label Text="Course" TextColor="Black" />
+            <!-- Entry field with visible background, text color, and placeholder -->
+            <Entry x:Name="TaskNameEntry" 
+                       Placeholder="Enter Course" 
+                       TextColor="Black" 
+                       BackgroundColor="LightGray" 
+                       PlaceholderColor="Gray" />
+
+            <Label Text="Description" TextColor="Black" />
+            <!-- Editor field with visible background, text color, and placeholder -->
+            <Editor x:Name="TaskDescriptionEditor" 
+                        Placeholder="Enter Description" 
+                        HeightRequest="100" 
+                        TextColor="Black" 
+                        BackgroundColor="LightGray" 
+                        PlaceholderColor="Gray" />
+
+            <Label Text="Day of Week" TextColor="Black" />
+            <!-- Picker field with visible background, text color -->
+            <Picker x:Name="DayOfWeekPicker" 
+                        Title="Select day of the week" 
+                        TextColor="Black" 
+                        BackgroundColor="LightGray">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Monday</x:String>
+                        <x:String>Tuesday</x:String>
+                        <x:String>Wednesday</x:String>
+                        <x:String>Thursday</x:String>
+                        <x:String>Friday</x:String>
+                        <x:String>Saturday</x:String>
+                        <x:String>Sunday</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label Text="Start Time" TextColor="Black" />
+            <!-- TimePicker field with visible background and text color -->
+            <TimePicker x:Name="StartTimePicker" 
+                            TextColor="Black" 
+                            BackgroundColor="LightGray" />
+
+            <Label Text="End Time" TextColor="Black" />
+            <!-- TimePicker field with visible background and text color -->
+            <TimePicker x:Name="EndTimePicker" 
+                            TextColor="Black" 
+                            BackgroundColor="LightGray" />
+
+            <Label Text="Course Type" TextColor="Black" />
+            <!-- Picker field with visible background, text color -->
+            <Picker x:Name="PriorityPicker" 
+                        Title="Select Type" 
+                        TextColor="Black" 
+                        BackgroundColor="LightGray">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Major</x:String>
+                        <x:String>Minor</x:String>
+                        <x:String>Retake</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <!-- Set the Button's background to green and text color to white -->
+            <Button Text="Save" 
+                        Clicked="OnSaveClicked" 
+                        BackgroundColor="Green" 
+                        TextColor="White" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>  
